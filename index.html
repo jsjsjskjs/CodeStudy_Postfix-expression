@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(s) {
+        //입력받은 문자열에서 숫자를 만났다
+        //스택에 넣어준다
+        //연산자를 만났다 스택에서 숫자를 2개를 빼서 연산
+        //먼저 빠진 숫자를 rightTarget, 나중에 빠진 숫자를 leftTarget
+        //연산한 결과를 다시 스택에 넣어준다
+        //다 끝난 뒤 스택에 남은 숫자 하나가 답이 될 것
+        let stack = [];
+        for (n = 0; n < s.length; n++) {
+          if (!isNaN(s[n])) stack.push(Number(s[n]));
+          else if (isNaN(s[n])) {
+            let rightTarget = stack.pop();
+            let leftTarget = stack.pop();
+            if (s[n] === "+") stack.push(leftTarget + rightTarget);
+            else if (s[n] === "-") stack.push(leftTarget - rightTarget);
+            else if (s[n] === "*") stack.push(leftTarget * rightTarget);
+            else if (s[n] === "/") stack.push(leftTarget / rightTarget);
+          }
+        }
+        return stack[0];
+      }
+
+      let str = "352+*9-";
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
